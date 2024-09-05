@@ -26,4 +26,13 @@ class LoginController extends Controller
 
         return response()->json(['error'=>'Unauthorised'], 401);
     }
+
+    public function logout(Request $request): JsonResponse
+    {
+        $request->user()->tokens()->delete();
+
+        return response()->json([
+            'message' => 'Logged out successfully.'
+        ]);
+    }
 }
