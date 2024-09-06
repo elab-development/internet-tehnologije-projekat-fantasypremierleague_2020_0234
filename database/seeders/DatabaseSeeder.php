@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\League;
 use App\Models\Player;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -17,18 +18,21 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RoleSeeder::class);
 
+        League::factory(100)->create();
+
         User::factory(100)->user()->create();
 
         User::factory()->admin()->create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
+            'league_id' => 1,
             'password' => Hash::make('admin')
         ]);
 
-        Player::factory(60)->gkp()->create();
-        Player::factory(60)->def()->create();
-        Player::factory(60)->mid()->create();
-        Player::factory(60)->fwd()->create();
+        Player::factory(150)->gkp()->create();
+        Player::factory(150)->def()->create();
+        Player::factory(150)->mid()->create();
+        Player::factory(150)->fwd()->create();
 
     }
 }

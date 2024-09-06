@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return  $this->belongsTo(Role::class);
     }
+
+    public function league(): BelongsTo
+    {
+        return $this->belongsTo(League::class);
+    }
 }

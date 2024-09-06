@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,5 +18,10 @@ Route::prefix('dashboard')
     ->middleware('auth:sanctum', 'role:admin,moderator,user')
     ->group(function () {
 
-    Route::middleware('auth:sanctum', 'role:admin')->apiResource('/users', UserController::class);
+    Route::post('/teams', [TeamController::class, 'store'])->name('team.store');
+    Route::get('/teams', [TeamController::class, 'index'])->name('team.index');
+    Route::patch('/teams', [TeamController::class, 'update'])->name('team.update');
+    Route::delete('/teams', [TeamController::class, 'delete'])->name('team.delete');
+
+    Route::middleware('role:admin')->apiResource('/users', UserController::class);
 });
