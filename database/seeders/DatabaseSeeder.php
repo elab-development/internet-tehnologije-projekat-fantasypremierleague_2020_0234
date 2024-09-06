@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Player;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -23,6 +24,11 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => Hash::make('admin')
         ]);
+
+        Player::factory(60)->gkp()->create();
+        Player::factory(60)->def()->create();
+        Player::factory(60)->mid()->create();
+        Player::factory(60)->fwd()->create();
 
     }
 }

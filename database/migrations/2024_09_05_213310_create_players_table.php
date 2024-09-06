@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('age');
             $table->integer('price');
             $table->string('position');
-            $table->foreignId('team_id')->constrained('teams');
+            $table->foreignId('team_id')->nullable()->constrained('teams');
             $table->timestamps();
         });
     }

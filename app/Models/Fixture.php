@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Fixture extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['round_id', 'first_team', 'second_team'];
 }
