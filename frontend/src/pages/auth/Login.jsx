@@ -3,11 +3,14 @@ import appLogo from '/logo.webp'
 import axiosService from "../../utils/axiosService.js";
 import { toast } from 'react-toastify';
 import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
     const login = async function login() {
         try{
             const response = await axiosService.post('/login', {
@@ -15,6 +18,8 @@ function Login() {
                 password: password
             })
             localStorage.setItem('authToken', response.data.token);
+            toast('Successfully logged in');
+            navigate('/')
         }catch (e) {
             toast.error('Login details are not correct')
         }

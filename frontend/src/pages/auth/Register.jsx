@@ -16,8 +16,6 @@ function Register() {
                 email: email,
                 password: password
             })
-            console.log(response)
-            // localStorage.setItem('authToken', response.data.token);
         }catch (e) {
             toast.error('Something went wrong, please try again')
         }

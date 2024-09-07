@@ -14,8 +14,9 @@ class TeamController extends Controller
      */
     public function index()
     {
-        $teams = Team::all();
-        return response()->json(['data' => $teams], 200);
+        $user = auth()->user();
+        $teams = $user->league->teams;
+        return response()->json(['teams' => $teams, 'league' => $user->league], 200);
     }
 
     /**
@@ -26,6 +27,7 @@ class TeamController extends Controller
         $user = auth()->user();
         $data = $request->validated();
         $data['league_id'] = $user->league->id;
+        $data['user_id'] = $user->id;
         $team = new Team($data);
         $team->save();
 

@@ -10,10 +10,15 @@ class Team extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'league_id'];
+    protected $fillable = ['name', 'league_id', 'user_id'];
 
     public function league(): BelongsTo
     {
         return $this->belongsTo(League::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }
