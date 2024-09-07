@@ -20,6 +20,8 @@ Route::prefix('dashboard')
     ->middleware('auth:sanctum', 'role:admin,moderator,user')
     ->group(function () {
 
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
     Route::post('/teams', [TeamController::class, 'store'])->name('team.store');
     Route::get('/teams', [TeamController::class, 'index'])->name('team.index');
     Route::patch('/teams', [TeamController::class, 'update'])->name('team.update');

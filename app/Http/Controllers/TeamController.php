@@ -24,7 +24,7 @@ class TeamController extends Controller
     public function store(TeamRequest $request)
     {
         $user = auth()->user();
-        $data = $request->all();
+        $data = $request->validated();
         $data['league_id'] = $user->league->id;
         $team = new Team($data);
         $team->save();

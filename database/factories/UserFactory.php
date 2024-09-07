@@ -56,4 +56,11 @@ class UserFactory extends Factory
             'role_id' => 3,
         ]);
     }
+
+    public function moderator(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role_id' => 2,
+        ]);
+    }
 }

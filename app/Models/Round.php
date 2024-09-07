@@ -18,8 +18,5 @@ class Round extends Model
         return $this->belongsTo(League::class);
     }
 
-    public function rounds(): HasMany
-    {
-        return $this->hasMany(Round::class);
-    }
+
 }
