@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -22,7 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role_id'
+        'role_id',
+        'league_id'
     ];
 
     /**
@@ -56,5 +58,10 @@ class User extends Authenticatable
     public function league(): BelongsTo
     {
         return $this->belongsTo(League::class);
+    }
+
+    public function team(): HasOne
+    {
+        return $this->hasOne(Team::class);
     }
 }

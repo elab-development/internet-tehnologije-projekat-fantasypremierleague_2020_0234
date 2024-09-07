@@ -4,12 +4,14 @@ import axiosService from "../../utils/axiosService.js";
 import { toast } from 'react-toastify';
 import {Link} from "react-router-dom";
 import {useNavigate} from "react-router-dom";
-
+import { useDispatch } from 'react-redux';
+import {addUserData} from "../../actions/index.js";
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const login = async function login() {
         try{
@@ -17,6 +19,7 @@ function Login() {
                 email: email,
                 password: password
             })
+            dispatch(addUserData(response.data));
             localStorage.setItem('authToken', response.data.token);
             toast('Successfully logged in');
             navigate('/')

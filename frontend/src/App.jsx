@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import './App.css'
-import {Link, Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,21 +8,20 @@ import Nav from "./components/Nav";
 import CreateTeam from "./pages/CreateTeam.jsx";
 import Home from "./pages/Home.jsx";
 import Protected from "./Protected.jsx";
+import Standings from "./pages/Standings.jsx";
+import ActivateRound from "./pages/ActivateRound.jsx";
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
       <div className="container mx-auto min-h-screen">
           <Nav/>
           <Routes>
-              <Route element={<Protected />}>
-                  <Route path="/create-team" element={<CreateTeam/>}/>
-                  <Route path="/home" element={<Home/>}/>
-              </Route>
 
               <Route element={<Protected />}>
                   <Route path="/create-team" element={<CreateTeam/>}/>
                   <Route path="/" element={<Home/>}/>
+                  <Route path="/standings" element={<Standings/>}/>
+                  <Route path="/round-settings" element={<ActivateRound/>}/>
               </Route>
 
               <Route path="/login" element={<Login/>}/>

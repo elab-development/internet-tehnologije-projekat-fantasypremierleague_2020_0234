@@ -33,7 +33,7 @@ class TeamController extends Controller
 
         foreach ($data['players'] as $player) {
             $player = Player::find($player);
-            $player->update(['team_id' => 1]);
+            $player->update(['team_id' => $team->id]);
         }
         $teams = Team::factory(5)->create(['league_id' => $user->league->id ]);
 

@@ -20,7 +20,7 @@ class RoundController extends Controller
         $firstPart = $chunks->get(0);
         $secondPart = $chunks->get(1);
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < count($chunks); $i++) {
             $firstTeam = $firstPart->get($i);
             $secondTeam = $secondPart->get($i);
 

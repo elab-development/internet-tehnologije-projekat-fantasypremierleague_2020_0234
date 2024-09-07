@@ -2,13 +2,18 @@ import React, {useState} from 'react';
 import appLogo from '/logo.webp'
 import axiosService from "../../utils/axiosService.js";
 import { toast } from 'react-toastify';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {addUserData} from "../../actions/index.js";
+import {useDispatch} from "react-redux";
 
 
 function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate()
+    const dispatch = useDispatch();
+
     const login = async function login() {
         try{
             const response = await axiosService.post('/register', {
@@ -16,6 +21,10 @@ function Register() {
                 email: email,
                 password: password
             })
+            dispatch(addUserData(response.data));
+            localStorage.setItem('authToken', response.data.token);
+            toast.success('Successfully logged in');
+            navigate('/create-team')
         }catch (e) {
             toast.error('Something went wrong, please try again')
         }
