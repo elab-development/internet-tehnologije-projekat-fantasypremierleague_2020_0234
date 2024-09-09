@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MessageSent;
 use App\Http\Services\RoundService;
 use App\Models\Fixture;
 use App\Models\League;
@@ -34,7 +35,7 @@ class RoundController extends Controller
     {
         $leagueID = $request->get('league_id');
         $this->roundService->startRound($leagueID);
-
+        event(new MessageSent('Round started'));
         return response()->json(['Message' => 'Success'], 200);
     }
 }

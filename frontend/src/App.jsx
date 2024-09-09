@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from './pages/auth/Login'
 import Register from './pages/auth/Register'
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer } from 'react-toastify';
+import {toast, ToastContainer} from 'react-toastify';
 import Nav from "./components/Nav";
 import CreateTeam from "./pages/CreateTeam.jsx";
 import Home from "./pages/Home.jsx";
@@ -13,7 +13,25 @@ import ActivateRound from "./pages/ActivateRound.jsx";
 import Footer from "./components/Footer.jsx";
 import EnterStats from "./pages/EnterStats.jsx";
 import CurrentFixture from "./pages/CurrentFixture.jsx";
+import Pusher from "pusher-js";
+import {useEffect} from "react";
 function App() {
+
+    useEffect(() => {
+        const pusher = new Pusher('fc2a2579ae7f80bdd5ff', {
+            cluster: 'eu',
+        });
+
+        const channel = pusher.subscribe('my-channel');
+
+        channel.bind('MessageSent', (data) => {
+            console.log(data)
+        });
+
+        return () => {
+            pusher.unsubscribe('my-channel');
+        };
+    }, []);
 
   return (
       <div className="min-h-screen flex flex-col justify-between">
