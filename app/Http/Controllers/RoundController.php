@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Services\RoundService;
 use App\Models\Fixture;
 use App\Models\League;
 use App\Models\Round;
@@ -9,28 +10,30 @@ use Illuminate\Http\Request;
 
 class RoundController extends Controller
 {
+    private $roundService;
+
+    public function __construct(RoundService $roundService)
+    {
+        $this->roundService = $roundService;
+    }
+
+    public function index()
+    {
+        $rounds = auth()->user()->league->rounds->last()->fixtures->load('first','second', 'statistics');
+        foreach ($rounds as $round) {
+            $points = 0;
+            foreach ($round->statistics as $single) {
+                $points+= $single->points;
+            }
+            $round->points = $points;
+        }
+        return response()->json($rounds);
+    }
+
     public function store(Request $request)
     {
         $leagueID = $request->get('league_id');
-        $round = new Round(['league_id' => $leagueID]);
-        $round->save();
-        $league = League::find($leagueID);
-        $teams = $league->teams->shuffle();
-        $chunks = $teams->split(2);
-        $firstPart = $chunks->get(0);
-        $secondPart = $chunks->get(1);
-
-        for ($i = 0; $i < count($chunks); $i++) {
-            $firstTeam = $firstPart->get($i);
-            $secondTeam = $secondPart->get($i);
-
-            $data['round_id'] = $round->id;
-            $data['first_team'] = $firstTeam->id;
-            $data['second_team'] = $secondTeam->id;
-
-            $fixture = new Fixture($data);
-            $fixture->save();
-        }
+        $this->roundService->startRound($leagueID);
 
         return response()->json(['Message' => 'Success'], 200);
     }

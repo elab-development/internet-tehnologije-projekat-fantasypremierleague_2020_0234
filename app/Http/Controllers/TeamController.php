@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\TeamRequest;
+use App\Http\Services\RoundService;
 use App\Models\Player;
 use App\Models\Team;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
 {
+    private $roundService;
+
+    public function __construct(RoundService $roundService)
+    {
+        $this->roundService = $roundService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -55,6 +63,8 @@ class TeamController extends Controller
                 $player->update([ 'team_id' => $team->id ]);
             }
         }
+
+        $this->roundService->startRound($user->league->id);
 
         return response()->json(['message' => 'Success'], 200);
     }

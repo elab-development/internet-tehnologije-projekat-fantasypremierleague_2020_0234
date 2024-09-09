@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('assists');
             $table->integer('yellow');
             $table->integer('red');
-            $table->integer('points');
+            $table->integer('points')->nullable();
             $table->timestamps();
         });
     }

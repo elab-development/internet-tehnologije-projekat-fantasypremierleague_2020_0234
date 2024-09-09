@@ -9,7 +9,7 @@ class LeagueController extends Controller
 {
     public function index()
     {
-        $leagues = League::all();
+        $leagues = League::has('teams')->get();
 
         return response()->json($leagues, 200);
     }

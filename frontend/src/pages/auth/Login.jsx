@@ -21,9 +21,15 @@ function Login() {
             })
             dispatch(addUserData(response.data));
             localStorage.setItem('authToken', response.data.token);
+            localStorage.setItem('userRole', response.data.role);
             toast('Successfully logged in');
+            if (response.data.role === 'admin' || response.data.role === 'moderator') {
+                navigate('/round-settings')
+                return
+            }
             navigate('/')
         }catch (e) {
+            console.log(e)
             toast.error('Login details are not correct')
         }
     }

@@ -36,8 +36,11 @@ Route::prefix('dashboard')
 
     Route::get('/leagues', [LeagueController::class, 'index'])->name('league.index');
 
-    Route::middleware('role:admin,moderator')->post('/statistic', [StatisticsController::class, 'store'])->name('statistic.index');
-    Route::middleware('role:admin,moderator')->post('/rounds', [RoundController::class, 'store'])->name('round.index');
+    Route::middleware('role:admin,moderator')->post('/statistics', [StatisticsController::class, 'store'])->name('statistic.store');
+    Route::middleware('role:admin,moderator')->get('/statistics', [StatisticsController::class, 'index'])->name('statistic.index');
+    Route::middleware('role:admin,moderator')->post('/rounds', [RoundController::class, 'store'])->name('round.store');
+
+    Route::get('/rounds', [RoundController::class, 'index'])->name('round.index');
 
     Route::middleware('role:admin')->apiResource('/users', UserController::class);
 });

@@ -10,7 +10,7 @@ class Statistic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fixture_id', 'player_id', 'goals', 'assists', 'yellow', 'red', 'points'];
+    protected $fillable = ['fixture_id', 'player_id', 'goals', 'assists', 'yellow_cards', 'red_cards', 'points'];
 
     public function fixture(): BelongsTo
     {

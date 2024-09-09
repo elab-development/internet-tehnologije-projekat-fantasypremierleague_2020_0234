@@ -21,8 +21,8 @@ class LoginController extends Controller
             $success['token'] =  $user->createToken('MyApp')->plainTextToken;
             $success['name'] =  $user->name;
             $success['role'] =  $user->role->name;
-            $success['team']['id'] =  $user->team->id;
-            $success['team']['name'] =  $user->team->name;
+            $success['team']['id'] =  $user->team?->id;
+            $success['team']['name'] =  $user->team?->name;
 
             return response()->json($success, 200);
         }

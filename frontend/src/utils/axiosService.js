@@ -23,7 +23,8 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     (error) => {
-        if (error.response.status === 401) {
+        let token = localStorage.getItem('authToken')
+        if (error.response.status === 401 && token) {
             localStorage.removeItem('authToken');
             window.location = '/login'
         }

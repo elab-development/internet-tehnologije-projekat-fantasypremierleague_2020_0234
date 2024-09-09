@@ -10,24 +10,33 @@ import Home from "./pages/Home.jsx";
 import Protected from "./Protected.jsx";
 import Standings from "./pages/Standings.jsx";
 import ActivateRound from "./pages/ActivateRound.jsx";
+import Footer from "./components/Footer.jsx";
+import EnterStats from "./pages/EnterStats.jsx";
+import CurrentFixture from "./pages/CurrentFixture.jsx";
 function App() {
 
   return (
-      <div className="container mx-auto min-h-screen">
-          <Nav/>
-          <Routes>
+      <div className="min-h-screen flex flex-col justify-between">
+          <div className="container mx-auto">
+              <Nav/>
+              <Routes>
 
-              <Route element={<Protected />}>
-                  <Route path="/create-team" element={<CreateTeam/>}/>
-                  <Route path="/" element={<Home/>}/>
-                  <Route path="/standings" element={<Standings/>}/>
-                  <Route path="/round-settings" element={<ActivateRound/>}/>
-              </Route>
+                  <Route element={<Protected/>}>
+                      <Route path="/create-team" element={<CreateTeam/>}/>
+                      <Route path="/" element={<Home/>}/>
+                      <Route path="/standings" element={<Standings/>}/>
+                      <Route path="/current" element={<CurrentFixture/>}/>
+                      <Route path="/round-settings" element={<ActivateRound/>}/>
+                      <Route path="/stats" element={<EnterStats/>}/>
+                  </Route>
 
-              <Route path="/login" element={<Login/>}/>
-              <Route path="/register" element={<Register/>}/>
-          </Routes>
-          <ToastContainer />
+                  <Route path="/login" element={<Login/>}/>
+                  <Route path="/register" element={<Register/>}/>
+              </Routes>
+              <ToastContainer/>
+          </div>
+          <Footer/>
+
       </div>
   )
 }

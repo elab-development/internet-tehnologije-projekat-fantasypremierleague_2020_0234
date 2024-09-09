@@ -2,12 +2,24 @@ import appLogo from '/logo.webp'
 import React, {useEffect, useState} from "react";
 import {toast} from "react-toastify";
 import axiosService from "../utils/axiosService.js";
+import {addUserData} from "../actions/index.js";
 
 function ActivateRound() {
     const [leagues, setLeagues] = useState([]);
     const [league, setLeague] = useState([]);
-    const handleChange = function () {
-        toast.success('New round successfully started')
+    const handleChange = async function () {
+        try{
+            const response = await axiosService.post('/dashboard/rounds', {
+                league_id: league,
+            })
+           console.log(league)
+            toast.success('New round successfully started')
+            
+        }catch (e) {
+            toast.error('Something went wrong, please try again')
+        }
+
+
     }
 
     const setNewLeague = function (e) {
