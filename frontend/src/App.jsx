@@ -25,7 +25,7 @@ function App() {
         const channel = pusher.subscribe('my-channel');
 
         channel.bind('MessageSent', (data) => {
-            console.log(data)
+            toast.success('New Round Started')
         });
 
         return () => {
