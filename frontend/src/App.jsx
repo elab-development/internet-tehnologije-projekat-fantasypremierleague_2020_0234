@@ -15,6 +15,7 @@ import EnterStats from "./pages/EnterStats.jsx";
 import CurrentFixture from "./pages/CurrentFixture.jsx";
 import Pusher from "pusher-js";
 import {useEffect} from "react";
+import Admin from "./pages/Admin.jsx";
 function App() {
 
     useEffect(() => {
@@ -46,6 +47,7 @@ function App() {
                       <Route path="/current" element={<CurrentFixture/>}/>
                       <Route path="/round-settings" element={<ActivateRound/>}/>
                       <Route path="/stats" element={<EnterStats/>}/>
+                      <Route path="/admin" element={<Admin/>}/>
                   </Route>
 
                   <Route path="/login" element={<Login/>}/>

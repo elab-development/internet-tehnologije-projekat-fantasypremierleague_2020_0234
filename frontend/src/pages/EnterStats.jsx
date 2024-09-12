@@ -7,6 +7,7 @@ function EnterStats ()
 {
     const [leagues, setLeagues] = useState([]);
     const [fixtures, setFixtures] = useState([]);
+    const [allFixtures, setAllFixtures] = useState([]);
     const [players, setPlayers] = useState([]);
     const [player, setPlayer] = useState(null);
     const [selectPlayers, setSelectPlayers] = useState([]);
@@ -24,11 +25,14 @@ function EnterStats ()
             try {
                 const response = await axiosService.get('/dashboard/statistics');
                 setLeagues(response.data[0])
-                setFixtures(response.data[1])
-                response.data[1][0].forEach(function (item) {
-                    let group = item.first.players.concat(item.second.players)
-                    players[item.id] = group
-                    setPlayers(players)
+                setAllFixtures(response.data[1])
+                response.data[1].forEach(function (item) {
+                    item.forEach(function (single) {
+                        let group = single.first.players.concat(single.second.players)
+                        players[single.id] = group
+                        setPlayers(players)
+                    })
+
                 })
             } catch (error) {
             }
@@ -46,9 +50,10 @@ function EnterStats ()
     const setFixturesDropdown = function (e) {
         if (e.target.value === '') {
             setFixtureVisible(false)
+            setSelectPlayers([])
             return
         }
-        setFixtures(fixtures[Number(e.target.value)])
+        setFixtures(allFixtures[Number(e.target.value)])
         setFixtureVisible(true)
     }
     const handleChange = async function () {
@@ -84,7 +89,7 @@ function EnterStats ()
                         fixtureVisible === true ? (
                             <select onChange={setMatchValue} className="mt-[5px]">
                                 <option value="">--Select a fixture--</option>
-                                {fixtures.map((option, index) => (
+                                {Array.isArray(fixtures) && fixtures.map((option, index) => (
                                     <option key={index} value={option.id}>
                                         {option.first.name} VS {option.second.name}
                                     </option>

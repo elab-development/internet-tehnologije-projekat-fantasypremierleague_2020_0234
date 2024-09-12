@@ -24,6 +24,10 @@ input, select {
     }
 }
 
+button:disabled {
+    background-color: grey;
+}
+
 .button {
     display: inline-block;
     outline: none;

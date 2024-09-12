@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\UserCollection;
 use App\Models\User;
 use Illuminate\Http\Request;
+use DataTables;
 
 class UserController extends Controller
 {
@@ -13,8 +14,14 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return new UserCollection($users); // Return the collection
+        $data = User::with('role')->get(['id', 'name', 'email', 'role_id']);
+        return DataTables::of($data)
+            ->addColumn('role_name', function ($item) {
+                return $item->role->name;
+            })
+            ->addIndexColumn()
+            ->only(['id', 'name', 'email', 'role_name'])
+            ->make(true);
     }
 
 

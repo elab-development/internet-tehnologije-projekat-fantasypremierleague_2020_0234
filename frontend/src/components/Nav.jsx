@@ -25,7 +25,7 @@ function Nav() {
                     { token && (role === 'user' || role === null) &&  (<Link className="text-gray-800 hover:text-blue-500" to="/current">Active Round</Link>)}
                     { token && (role === 'admin' || role === 'moderator') &&  (<Link className="text-gray-800 hover:text-blue-500" to="/round-settings">Round Settings</Link>)}
                     { token && (role === 'admin' || role === 'moderator') && (<Link className="text-gray-800 hover:text-blue-500" to="/stats">Enter Stats</Link>)}
-                    { token && (role === 'admin') && (<Link className="text-gray-800 hover:text-blue-500" to="/">Admin</Link>)}
+                    { token && (role === 'admin') && (<Link className="text-gray-800 hover:text-blue-500" to="/admin">Admin</Link>)}
                     { token &&  (<span onClick={logout} className="text-gray-800 hover:text-blue-500 cursor-pointer" >Logout</span>)}
                 </div>
             </div>
